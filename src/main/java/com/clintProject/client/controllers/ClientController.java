@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/clients")
 public class ClientController {
@@ -23,8 +25,8 @@ public class ClientController {
     }
 
     @GetMapping
-    public Page<ClientDTO> findAll(Pageable pageable){
-        return  service.findAll(pageable);
+    public List<ClientDTO> findAll(){
+        return  service.findAll();
     }
 
     @PostMapping
