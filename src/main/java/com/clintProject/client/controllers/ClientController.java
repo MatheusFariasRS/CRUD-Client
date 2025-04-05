@@ -5,7 +5,9 @@ import com.clintProject.client.entities.Client;
 import com.clintProject.client.repositories.ClientRepository;
 import com.clintProject.client.services.ClientServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +20,17 @@ import java.util.Optional;
 public class ClientController {
 
     @Autowired
-    private ClientServices services;
+    private ClientServices service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable Long id){
-        ClientDTO dto = services.findById(id);
-        return ResponseEntity.ok(dto);
+    public ClientDTO findById(@PathVariable Long id){
+       return service.findById(id);
     }
+
+    @GetMapping
+    public Page<ClientDTO> findAll(Pageable pageable){
+        return  service.findAll(pageable);
+    }
+
 
 }
