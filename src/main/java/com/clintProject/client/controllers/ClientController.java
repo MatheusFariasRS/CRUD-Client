@@ -24,9 +24,10 @@ public class ClientController {
        return service.findById(id);
     }
 
+    
     @GetMapping
-    public List<ClientDTO> findAll(){
-        return  service.findAll();
+    public Page<ClientDTO> findAll(Pageable pageable){
+        return  service.findAll(pageable);
     }
 
     @PostMapping

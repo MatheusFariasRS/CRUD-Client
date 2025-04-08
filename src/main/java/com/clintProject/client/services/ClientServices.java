@@ -16,16 +16,19 @@ import java.util.Optional;
 public class ClientServices {
     @Autowired
     private ClientRepository repository;
+
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id){
         Client client = repository.findById(id).get();
         return new ClientDTO(client);
     }
+
     @Transactional(readOnly = true)
-    public List<ClientDTO> findAll(){
-        List<Client> result = repository.findAll();
-        return result.stream().map(x -> new ClientDTO(x)).toList();
+    public Page<ClientDTO> findAll(Pageable pageable){
+       Page<Client> result = repository.findAll(pageable);
+        return result.map(x -> new ClientDTO(x));
     }
+
     @Transactional
     public ClientDTO insert(ClientDTO dto){
         Client entity = new Client();
@@ -33,6 +36,7 @@ public class ClientServices {
         entity = repository.save(entity);
         return new ClientDTO(entity);
     }
+
     @Transactional
     public ClientDTO update(Long id, ClientDTO dto){
         Client entity = repository.getReferenceById(id);
@@ -40,9 +44,11 @@ public class ClientServices {
         entity = repository.save(entity);
         return new ClientDTO(entity);
     }
+
     public void delete(Long id){
         repository.deleteById(id);
     }
+
     private void copyDtoToEntity(ClientDTO dto, Client entity) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
