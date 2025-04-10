@@ -8,12 +8,15 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class ClientDTO {
+
     private Long id;
-    @Size(min = 3, max = 80, message = "Nome precisa ter entre 3 e 80 caracteres.")
-    @NotBlank(message = "Campo requerido.")
+
+    @Size(min = 3, max = 80, message = "Nome precisa ter entre 3 e 80 caracteres")
+    @NotBlank(message = "Campo requerido")
     private String name;
     private String cpf;
     private Double income;
+
     @PastOrPresent(message = "Data inválida")
     private LocalDate birthDate;
     private Integer children;
